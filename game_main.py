@@ -1,31 +1,35 @@
 import pygame, sys, os
 from sniffer_class import Sniffer
+
+# initializing the game 
 pygame.init()
-pygame.display.set_caption("Sniffer")
 
-size = width, height = 640*2, 480*2
-green = 144, 238, 144
+# game setup 
+fps = 30
 fpsclock = pygame.time.Clock()
-screen = pygame.display.set_mode(size)
+background_green = (144, 238, 144)
+sniffer_speed = 3
 
-surface = pygame.display.get_surface()
-x, y = surface.get_width(), surface.get_height()
+# display
+pygame.display.set_caption("Sniffer")
+pygame.display.set_icon(pygame.image.load(os.path.join("images", "sniffer_front.png")))
+window_size = window_width, window_height = 640*2, 480*2
+game_window = pygame.display.set_mode(window_size)
 
-sniffer = Sniffer(x/2, y/2)
-
+# Sniffer
+sniffer = Sniffer(window_width/2, window_height/2)
 sprite_group = pygame.sprite.Group()
 sprite_group.add(sniffer)
 
-sniffer_speed = 3
-
+# main game loop 
 render = True
 while render:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: 
             render = False
+            pygame.quit()
             sys.exit()
     
-
     keys = pygame.key.get_pressed()
     
     if keys[pygame.K_LEFT]:
@@ -40,8 +44,8 @@ while render:
     else:
         sniffer.walk = False
     
-    
-    fpsclock.tick(30)
-    screen.fill(green)
-    sprite_group.draw(screen)
-    pygame.display.flip()
+    # rendering the elements 
+    fpsclock.tick(fps)
+    game_window.fill(background_green)
+    sprite_group.draw(game_window)
+    pygame.display.flip() # there's also update
