@@ -1,5 +1,5 @@
 # Sniffer
-Small game about big nose called "Sniffer" & written in Python. 
+Small game about BIG nose called "Sniffer" & written in Python. 
 
 
 # TO DO
